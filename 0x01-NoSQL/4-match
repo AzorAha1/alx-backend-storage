@@ -1,0 +1,2 @@
+// filter to list when name = Holberton school in school collection
+db.school.find({"name" : "Holberton school"})
