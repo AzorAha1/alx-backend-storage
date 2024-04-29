@@ -1,4 +1,4 @@
 // create collection
 db.createCollection("school");
 // insert document in a collection called school
-db.school.insertOne({"name": "Holberton school"});
+db.school.insertOne({"name" : "Holberton school"});
