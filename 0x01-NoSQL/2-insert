@@ -1,3 +1,6 @@
-// insert document in a collection called school
+// use my_db
+use my_db
+// create collection
 db.createCollection("school")
+// insert document in a collection called school
 db.school.insertOne({"name": "“Holberton school"})
