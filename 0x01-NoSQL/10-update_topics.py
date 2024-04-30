@@ -13,6 +13,6 @@ def update_topics(mongo_collection, name, topics):
     Returns:
         list: newtopic(s) added
     """
-    newtopics = mongo_collection.update_one({"name": name}, {"$set": {"topics": topics}})
+    newtopics = mongo_collection.update_many({"name": name}, {"$set": {"topics": topics}})
     return newtopics
     
