@@ -11,13 +11,7 @@ def list_all(mongo_collection):
     Returns:
         list: list of documents
     """
-    documents = []
     if (mongo_collection.count_documents({}) == 0):
-        return document
-    for document in mongo_collection.find():
-        documents.append(document)
+        return []
+    documents = mongo_collection.find()
     return documents
-
-
-if __name__ == '__main__':
-    pass
