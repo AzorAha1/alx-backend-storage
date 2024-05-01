@@ -26,7 +26,8 @@ class Cache:
         self._redis.set(name=randomkey, value=data)
         return randomkey
 
-    def get(self, key: str, fn: Optional[Callable]) -> str:
+    def get(self, key: str,
+            fn: Optional[Callable] = None) -> Union[str, bytes, float, int]:
         """_summary_
 
         Args:
@@ -51,7 +52,7 @@ class Cache:
             str: _description_
         """
         value = self._redis.get(key)
-        return self.get(key, value.decode('utf-8'))
+        return value.decode('utf-8')
 
     def get_int(self, key: str) -> int:
         """_summary_
