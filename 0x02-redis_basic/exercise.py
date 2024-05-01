@@ -6,6 +6,8 @@ import uuid
 
 class Cache:
     def __init__(self):
+        """_summary_
+        """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
