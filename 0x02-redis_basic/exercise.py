@@ -19,6 +19,6 @@ class Cache:
         Returns:
             str: _description_
         """
-        randomkey = str(uuid.uuid4())
+        randomkey = uuid.uuid4()
         self._redis.set(name=randomkey, value=data)
         return randomkey
