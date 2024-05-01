@@ -49,7 +49,8 @@ class Cache:
         Returns:
             str: _description_
         """
-        return self.get(key=key, fn=lambda x: x.decode('utf-8'))
+        value = self._redis.get(key)
+        return self.get(key=key, fn=value.decode('utf-8'))
 
     def get_int(self, key: int) -> int:
         """_summary_
