@@ -49,7 +49,7 @@ class Cache:
         Returns:
             str: _description_
         """
-        return self.get(key=key, fn=str)
+        return self.get(key=key, fn=lambda x: x.decode('utf-8'))
 
     def get_int(self, key: int) -> int:
         """_summary_
@@ -60,4 +60,4 @@ class Cache:
         Returns:
             int: _description_
         """
-        return self.get(key=key, fn=int)
+        return self.get(key=key, fn=lambda x: int(x))
