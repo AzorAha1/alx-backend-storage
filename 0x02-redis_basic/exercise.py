@@ -2,6 +2,7 @@
 """this is a class"""
 import redis
 import uuid
+from typing import Union
 
 
 class Cache:
@@ -11,7 +12,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def store(self, data: any) -> str:
+    def store(self, data:Union[str, bytes, int, float]) -> str:
         """_summary_
         Args:
             data (any): _description_
@@ -19,6 +20,6 @@ class Cache:
         Returns:
             str: _description_
         """
-        randomkey = uuid.uuid4()
+        randomkey = str(uuid.uuid4())
         self._redis.set(name=randomkey, value=data)
         return randomkey
