@@ -4,6 +4,7 @@ import redis
 import uuid
 from typing import Union
 from typing import Callable
+from typing import Optional
 
 
 class Cache:
@@ -25,7 +26,7 @@ class Cache:
         self._redis.set(name=randomkey, value=data)
         return randomkey
 
-    def get(self, key: str, fn: Callable[[str], str]) -> str:
+    def get(self, key: str, fn: Optional[Callable]) -> str:
         """_summary_
 
         Args:
@@ -36,9 +37,9 @@ class Cache:
             str: _description_
         """
         data = self._redis.get(key)
-        if data is None:
-            return None
-        return fn(data)
+        if fn:
+            return fn(data)
+        return data
 
     def get_str(self, key: str) -> str:
         """_summary_
