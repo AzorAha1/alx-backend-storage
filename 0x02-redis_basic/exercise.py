@@ -35,10 +35,10 @@ class Cache:
         Returns:
             str: _description_
         """
-        if not key not in self._redis:
+        data = self._redis.get(key)
+        if data is None:
             return None
-        # data = self._redis.get(key)
-        # return fn(data)
+        return fn(data)
 
     def get_str(self, key: str) -> str:
         """_summary_
