@@ -51,7 +51,7 @@ class Cache:
             str: _description_
         """
         value = self._redis.get(key)
-        return self.get(key=key, fn=value.decode('utf-8'))
+        return self.get(key, value.decode('utf-8'))
 
     def get_int(self, key: str) -> int:
         """_summary_
