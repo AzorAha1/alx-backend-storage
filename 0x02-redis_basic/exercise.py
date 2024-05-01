@@ -61,4 +61,4 @@ class Cache:
         Returns:
             int: _description_
         """
-        return self.get(key=key, fn=lambda x: int(x))
+        return self.get(key, int)
