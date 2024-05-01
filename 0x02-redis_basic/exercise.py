@@ -37,8 +37,8 @@ class Cache:
         """
         if not key not in self._redis:
             return None
-        data = self._redis.get(key)
-        return fn(data)
+        # data = self._redis.get(key)
+        # return fn(data)
 
     def get_str(self, key: str) -> str:
         """_summary_
