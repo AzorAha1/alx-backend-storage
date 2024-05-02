@@ -50,7 +50,8 @@ def call_history(method: Callable) -> Callable:
         self._redis.rpush(outputs, str(result))
         return result
     return wrapper
-    
+
+
 
 class Cache:
     def __init__(self):
@@ -72,6 +73,20 @@ class Cache:
         randomkey = str(uuid.uuid4())
         self._redis.set(name=randomkey, value=data)
         return randomkey
+
+    @staticmethod
+    def replay(func):
+        """sumary_line"""
+        qualified_name = func.__qualname__
+        redi = redis.Redis()
+        lenofcalls = len(redi.lrange(qualified_name, 0, -1))
+        inputs = f'{qualified_name}:inputs'
+        outputs = f'{qualified_name}:outputs'
+        allinputs = redi.lrange(inputs, 0, -1)
+        alloutputs = redi.lrange(outputs, 0, -1)
+        print(f'{qualified_name} was called {lenofcalls} times:')
+        for i, o in zip(allinputs, alloutputs):
+            print(f'{qualified_name}(*{i.decode('utf-8')}) -> {o.decode('utf-8')}')
 
     def get(self, key: str,
             fn: Optional[Callable] = None) -> Union[str, bytes, float, int]:
