@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """this is a class"""
-import functools
+from functools import wraps
 import redis
 import uuid
 from typing import Union
@@ -17,22 +17,19 @@ def count_call(method: Callable) -> Callable:
     Returns:
         Callable: _description_
     """
-    key = method.__qualname__
-    
-    
-    @functools.wraps(method)
+    @wraps(method)
     def wrapper(self, *args, **kwargs):
         """_summary_
 
         Returns:
             _type_: _description_
         """
+        key = method.__qualname__
         self._redis.incr(key)
         return method(self, *args, **kwargs)
     return wrapper
 
 
-@count_call
 class Cache:
     def __init__(self):
         """_summary_
