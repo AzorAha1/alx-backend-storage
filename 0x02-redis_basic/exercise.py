@@ -26,14 +26,13 @@ def count_calls(method: Callable) -> Callable:
         Returns:
             _type_: _description_
         """
-        
         self._redis.incr(key)
         return method(self, *args, **kwargs)
     return wrapper
 
+
 def call_history(method: Callable) -> Callable:
     """_summary_
-
     Args:
         method (Callable): _description_
 
@@ -41,6 +40,7 @@ def call_history(method: Callable) -> Callable:
         Callable: _description_
     """
     qualifiedname = method.__qualname__
+
     @wraps(method)
     def wrapper(self, *args, **kwargs):
         inputs = f'{qualifiedname}:inputs'
@@ -50,7 +50,6 @@ def call_history(method: Callable) -> Callable:
         self._redis.rpush(outputs, str(result))
         return result
     return wrapper
-
 
 
 class Cache:
@@ -86,7 +85,8 @@ class Cache:
         alloutputs = redi.lrange(outputs, 0, -1)
         print(f'{qualified_name} was called {lenofcalls} times:')
         for i, o in zip(allinputs, alloutputs):
-            print(f'{qualified_name}(*{i.decode('utf-8')}) -> {o.decode('utf-8')}')
+            print(
+                f'{qualified_name}(*{i.decode()}) -> {o.decode()}')
 
     def get(self, key: str,
             fn: Optional[Callable] = None) -> Union[str, bytes, float, int]:
