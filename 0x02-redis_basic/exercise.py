@@ -8,7 +8,7 @@ from typing import Callable
 from typing import Optional
 
 
-def count_call(method: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """_summary_
 
     Args:
@@ -39,7 +39,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    @count_call
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """_summary_
         Args:
