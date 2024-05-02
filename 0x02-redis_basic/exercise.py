@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """this is a class"""
+import functools
 import redis
 import uuid
 from typing import Union
@@ -7,6 +8,31 @@ from typing import Callable
 from typing import Optional
 
 
+def count_call(method: Callable) -> Callable:
+    """_summary_
+
+    Args:
+        method (Callable): _description_
+
+    Returns:
+        Callable: _description_
+    """
+    key = method.__qualname__
+    
+    
+    @functools.wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+    return wrapper
+
+
+@count_call
 class Cache:
     def __init__(self):
         """_summary_
@@ -14,6 +40,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
+    @count_call
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """_summary_
         Args:
