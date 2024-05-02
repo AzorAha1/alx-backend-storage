@@ -78,7 +78,7 @@ class Cache:
         """sumary_line"""
         qualified_name = func.__qualname__
         redi = redis.Redis()
-        lenofcalls = len(redi.lrange(qualified_name, 0, -1))
+        lenofcalls = len(redi.lrange(f'{qualified_name}:inputs', 0, -1))
         inputs = f'{qualified_name}:inputs'
         outputs = f'{qualified_name}:outputs'
         allinputs = redi.lrange(inputs, 0, -1)
